@@ -1,0 +1,17 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/lao-helper.html",
+  "fragments": [
+    "src/lao-tones.html",
+    "src/lao-404.html"
+  ],
+  "sourceGlobs": [
+   "src/**/*",
+   "images/**/*",
+   "bower.json"
+  ],
+  "includeDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
+}
