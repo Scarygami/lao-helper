@@ -1,7 +1,7 @@
 {
-  "name": "polymer-starter-kit",
+  "name": "lao-helper",
   "authors": [
-    "The Polymer Authors"
+    "Gerwin Sturm <scarygami@gmail.com>"
   ],
   "private": true,
   "dependencies": {

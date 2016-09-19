@@ -13,5 +13,12 @@ module.exports = {
     '/manifest.json',
     '/bower_components/webcomponentsjs/webcomponents-lite.min.js'
   ],
-  navigateFallback: '/index.html'
+  navigateFallback: '/index.html',
+  runtimeCaching: [{
+    urlPattern: /^https:\/\/fonts\.gstatic\.com/,
+    handler: 'fastest'
+  }, {
+    urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+    handler: 'fastest'
+  }]
 };
