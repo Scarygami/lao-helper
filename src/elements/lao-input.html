@@ -1,0 +1,161 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="lao-styles.html">
+
+
+<dom-module id="lao-input">
+  <template>
+    <style include="lao-styles">
+      paper-input {
+        --paper-input-container-input: {
+          font-family: 'Noto Sans Lao';
+          font-size: 24px;
+        };
+      }
+
+      paper-input[hidden] {
+        display: none;
+      }
+
+      paper-button {
+        font-size: 24px;
+        padding: 0.1em;
+        min-width: 2em;
+        width: 2em;
+        text-transform: none;
+      }
+
+      #keyboard {
+        @apply --layout-horizontal;
+        @apply --layout-wrap;
+      }
+
+      #keyboard > div {
+        margin: 0.2em;
+        max-width: 33%;
+      }
+
+      @media screen and (max-width: 700px) {
+        #keyboard > div {
+          max-width: 100%;
+          width: 100%;
+        }
+      }
+
+    </style>
+
+    <paper-input label="Text in Lao script" value="{{value}}" hidden$="[[noInput]]"></paper-input>
+    <div id="keyboard">
+      <div>
+        <div class="title">Consonants</div>
+        <template is="dom-repeat" items="[[_consonants]]">
+          <paper-button raised class="lao" on-tap="_handleKey">[[item]]</paper-button>
+        </template>
+      </div>
+
+      <div>
+        <div class="title">Vowels</div>
+        <template is="dom-repeat" items="[[_vowels]]">
+          <paper-button raised class="lao" on-tap="_handleKey">[[item]]</paper-button>
+        </template>
+      </div>
+
+      <div>
+        <div class="title">Tone marks</div>
+        <template is="dom-repeat" items="[[_marks]]">
+          <paper-button raised class="lao" on-tap="_handleKey">[[item]]</paper-button>
+        </template>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lao-input',
+      properties: {
+        value: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+
+        noInput: {
+          type: Boolean,
+          value: false
+        },
+
+        _consonants: {
+          type: Array,
+          value: function () {
+            return [
+              'ກ', 'ຂ', 'ຄ', 'ງ', 'ຈ', 'ສ', 'ຊ', 'ຍ', 'ດ', 'ຕ', 'ຖ', 'ທ', 'ນ',
+              'ບ', 'ປ', 'ຜ', 'ຝ', 'ພ', 'ຟ', 'ມ', 'ຢ', 'ຣ', 'ລ', 'ວ', 'ຫ', 'ອ',
+              'ຮ', 'ຫງ', 'ຫຍ', 'ໜ', 'ໝ', 'ຫຼ', 'ຫວ'];
+          }
+        },
+
+        _vowels: {
+          type: Array,
+          value: function () {
+            return [
+             'xະ', 'xັ', 'xາ',
+             'xິ', 'xີ', 'xຶ', 'xື', 'xຸ', 'xູ',
+             'ເxະ', 'ເxັ', 'ເx',
+             'ເເxະ', 'ເເxັ', 'ເເx',
+             'ໂxະ', 'xົ', 'ໂx',
+             'ເxາະ', 'xໍ', 'xອ',
+             'ເxິ', 'ເxີ', 'ເxັຽະ', 'xັຽ',
+             'ເxຍ', 'ເxັຽ', 'xຽ',
+             'ເxຶອ', 'ເxືອ',
+             'xົວະ', 'xັວະ', 'xົວ', 'xວ', 'ໃx', 'ໄx',
+             'ເxົາ', 'xຳ', 'xອຍ'
+            ];
+          }
+        },
+
+        _marks: {
+          type: Array,
+          value: function () {
+            return [
+              'x່', 'x້', '<'
+            ];
+          }
+        }
+      },
+
+      _handleKey: function (e) {
+        var suffix = e.model.item;
+        var prefix = '';
+        var x = suffix.indexOf('x');
+        if (x >= 0) {
+          prefix = suffix.substring(0, x);
+          suffix = suffix.substring(x + 1);
+        }
+
+        if (suffix === '<') {
+          this.set('value', this.value.substring(0, this.value.length - 1));
+        } else {
+          if (prefix !== '') {
+            this.set('value', this.value.substring(0, this.value.length - 1) + prefix + this.value.substring(this.value.length - 1) + suffix);
+          } else {
+            this.set('value', this.value + suffix);
+          }
+        }
+      }
+    });
+  </script>
+</dom-module>
