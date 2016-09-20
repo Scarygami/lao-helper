@@ -18,8 +18,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="elements/lao-icons.html">
 <link rel="import" href="elements/lao-styles.html">
+
 
 <dom-module id="lao-helper">
   <template>
@@ -38,6 +40,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
       }
+
+      iron-pages {
+        @apply(--layout-flex);
+        @apply(--layout-vertical);
+      }
+
+      iron-pages > * {
+        @apply(--layout-flex);
+      }
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -47,8 +58,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
-    <app-header-layout has-scrolling-region fullbleed>
-      <app-header condenses reveals effects="waterfall">
+    <app-header-layout fullbleed has-scrolling-region>
+      <app-header>
         <app-toolbar>
           <div main-title>Lao Helper - <span class="lao">ລາວ</span></div>
         </app-toolbar>

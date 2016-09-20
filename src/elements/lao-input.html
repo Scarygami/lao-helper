@@ -20,7 +20,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="lao-input">
   <template>
     <style include="lao-styles">
+      :host {
+        @apply(--layout-vertical);
+      }
+
       paper-input {
+        @apply(--layout-flex);
         --paper-input-container-input: {
           font-family: 'Noto Sans Lao';
           font-size: 24px;
@@ -34,31 +39,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       paper-button {
         font-size: 24px;
         padding: 0.1em;
-        min-width: 2em;
-        width: 2em;
+        min-width: 2.5em;
+        width: 2.5em;
         text-transform: none;
       }
 
       #keyboard {
-        @apply --layout-horizontal;
-        @apply --layout-wrap;
+        @apply(--layout-flex);
+        @apply(--layout-horizontal);
+        overflow: auto;
       }
 
       #keyboard > div {
         margin: 0.2em;
-        max-width: 33%;
+        min-width: 12em;
       }
 
-      @media screen and (max-width: 700px) {
-        #keyboard > div {
-          max-width: 100%;
-          width: 100%;
-        }
+      #input {
+        @apply(--layout-horizontal);
       }
 
     </style>
 
-    <paper-input label="Text in Lao script" value="{{value}}" hidden$="[[noInput]]"></paper-input>
+    <div id="input">
+      <paper-input label="Text in Lao script" value="{{value}}" hidden$="[[noInput]]"></paper-input>
+      <paper-button raised class="lao" on-tap="_delete">&lt;</paper-button>
+    </div>
     <div id="keyboard">
       <div>
         <div class="title">Consonants</div>
@@ -68,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
 
       <div>
-        <div class="title">Vowels</div>
+        <div class="title">Vowel combinations</div>
         <template is="dom-repeat" items="[[_vowels]]">
           <paper-button raised class="lao" on-tap="_handleKey">[[item]]</paper-button>
         </template>
@@ -112,17 +118,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Array,
           value: function () {
             return [
-             'xະ', 'xັ', 'xາ',
-             'xິ', 'xີ', 'xຶ', 'xື', 'xຸ', 'xູ',
-             'ເxະ', 'ເxັ', 'ເx',
-             'ເເxະ', 'ເເxັ', 'ເເx',
-             'ໂxະ', 'xົ', 'ໂx',
-             'ເxາະ', 'xໍ', 'xອ',
-             'ເxິ', 'ເxີ', 'ເxັຽະ', 'xັຽ',
-             'ເxຍ', 'ເxັຽ', 'xຽ',
-             'ເxຶອ', 'ເxືອ',
-             'xົວະ', 'xັວະ', 'xົວ', 'xວ', 'ໃx', 'ໄx',
-             'ເxົາ', 'xຳ', 'xອຍ'
+             'xະ', 'xັ', 'xາ', 'xາຍ',  'xາວ',
+             'xິ', 'xີ', 'xິວ', 'xຶ', 'xື',
+             'xຸ', 'xຸຍ', 'xູ',
+             'ເxັ', 'ເxະ',  'ເx',
+             'ເເxະ', 'ເເx', 'ເເxວ',
+             'xົ', 'ໂxະ',  'ໂx', 'ໂxຍ',
+             'ເxາະ', 'xໍ', 'xອ', 'xອຍ',
+             'ເxິ', 'ເxີ', 'ເxີຍ', 'ເxັຍ', 'ເxຍ',
+             'xຽ', 'xຽວ', 'ເxືອ', 'ເxືອຍ',
+             'xົວະ', 'xົວ', 'xວ', 'xວຍ', 'ໃx', 'ໄx',
+             'ເxົາ', 'xຳ'
             ];
           }
         },
@@ -131,7 +137,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Array,
           value: function () {
             return [
-              'x່', 'x້', '<'
+              'x່', 'x້'
             ];
           }
         }
@@ -146,15 +152,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           suffix = suffix.substring(x + 1);
         }
 
-        if (suffix === '<') {
-          this.set('value', this.value.substring(0, this.value.length - 1));
+        if (prefix !== '') {
+          this.set('value', this.value.substring(0, this.value.length - 1) + prefix + this.value.substring(this.value.length - 1) + suffix);
         } else {
-          if (prefix !== '') {
-            this.set('value', this.value.substring(0, this.value.length - 1) + prefix + this.value.substring(this.value.length - 1) + suffix);
-          } else {
-            this.set('value', this.value + suffix);
-          }
+          this.set('value', this.value + suffix);
         }
+      },
+
+      _delete: function () {
+        this.set('value', this.value.substring(0, this.value.length - 1));
       }
     });
   </script>
