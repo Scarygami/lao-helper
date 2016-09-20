@@ -20,5 +20,8 @@ module.exports = {
   }, {
     urlPattern: /^https:\/\/fonts\.googleapis\.com/,
     handler: 'fastest'
+  }, {
+  	urlPattern: /\/images\//,
+  	handler: 'fastest'
   }]
 };

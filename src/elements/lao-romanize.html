@@ -1,0 +1,123 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="lao-styles.html">
+
+<dom-module id="lao-romanize">
+  <template>
+    <style include="lao-styles">
+      :host {
+        display: block;
+      }
+    </style>
+
+    <template is="dom-repeat" items="[[_output]]">
+      <span>[[item]]</span>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lao-romanize',
+      properties: {
+        value: String,
+
+        _output: {
+          type: Array,
+          computed: '_romanize(value)'
+        },
+
+        _consonants: {
+          type: Object,
+          value: function () {
+            return {
+              'ກ': 'g',
+              'ຂ': 'kh',
+              'ຄ': 'k',
+              'ງ': 'ng',
+              'ຈ': 'j',
+              'ສ': 's',
+              'ຊ': 's',
+              'ຍ': 'ny',
+              'ດ': 'd',
+              'ຕ': 'dt',
+              'ຖ': 'th',
+              'ທ': 't',
+              'ນ': 'n',
+              'ບ': 'b',
+              'ປ': 'bp',
+              'ຜ': 'ph',
+              'ຝ': 'f',
+              'ພ': 'p',
+              'ຟ': 'f',
+              'ມ': 'm',
+              'ຢ': 'y',
+              'ຣ': 'r',
+              'ລ': 'l',
+              'ວ': 'w',
+              'ຫ': 'h',
+              'ອ': 'a',
+              'ຮ': 'h',
+              'ຫງ': 'ng',
+              'ຫຍ': 'ny',
+              'ໜ': 'n',
+              'ໝ': 'm',
+              'ຫຼ': 'l',
+              'ຫວ': 'w'
+            };
+          }
+        },
+
+        _vowels: {
+          type: Array,
+          value: function () {
+            return [
+             'xະ', 'xັ', 'xາ', 'xາຍ',  'xາວ',
+             'xິ', 'xີ', 'xິວ', 'xຶ', 'xື',
+             'xຸ', 'xຸຍ', 'xູ',
+             'ເxັ', 'ເxະ',  'ເx',
+             'ເເxະ', 'ເເx', 'ເເxວ',
+             'xົ', 'ໂxະ',  'ໂx', 'ໂxຍ',
+             'ເxາະ', 'xໍ', 'xອ', 'xອຍ',
+             'ເxິ', 'ເxີ', 'ເxີຍ', 'ເxັຍ', 'ເxຍ', 'ເxັຽ',
+             'xຽ', 'xຽວ', 'ເxືອ', 'ເxືອຍ',
+             'xົວະ', 'xົວ', 'xວ', 'xວຍ', 'ໃx', 'ໄx',
+             'ເxົາ', 'xຳ'
+            ];
+          }
+        },
+
+        _marks: {
+          type: Array,
+          value: function () {
+            return [
+              'x່', 'x້'
+            ];
+          }
+        }
+      },
+
+      _romanize: function (input) {
+        var chars = input.split('');
+        return chars.map(function (c) {
+          if (!!this._consonants[c]) {
+            return this._consonants[c];
+          }
+          return c;
+        }.bind(this));
+      }
+
+    });
+  </script>
+</dom-module>

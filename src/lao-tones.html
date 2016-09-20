@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="elements/lao-input.html">
+<link rel="import" href="elements/lao-romanize.html">
 
 <dom-module id="lao-tones">
   <template>
@@ -27,13 +28,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-    <lao-input></lao-input>
+    <lao-romanize value="[[_value]]"></lao-romanize>
+    <lao-input value="{{_value}}"></lao-input>
 
   </template>
 
   <script>
     Polymer({
-      is: 'lao-tones'
+      is: 'lao-tones',
+      properties: {
+        _value: String
+      }
     });
   </script>
 </dom-module>
