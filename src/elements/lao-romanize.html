@@ -98,6 +98,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         },
 
+        _beforeVowels: {
+          type: Array,
+          value: function () {
+            return [
+              'ເ', 'ໂ', 'ໃ', 'ໄ'
+            ];
+          }
+        },
+
+        _afterVowels: {
+          type: Array,
+          value: function () {
+            return [
+              'ະ', 'ັ', 'າ', 'ຍ', 'ວ', 'ິ', 'ີ', 'ຶ',
+              'ື', 'ຸ', 'ູ', 'ົ', 'ໍ', 'ອ', 'ຽ'
+            ];
+          }
+        },
+
         _marks: {
           type: Array,
           value: function () {
@@ -108,14 +127,73 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
+      _romanizeSyllable: function (beforeVowels, consonants, afterVowels) {
+        // TODO:
+        return beforeVowels + consonants + afterVowels;
+      },
+
       _romanize: function (input) {
         var chars = input.split('');
-        return chars.map(function (c) {
-          if (!!this._consonants[c]) {
-            return this._consonants[c];
+        var syllables = [];
+        var beforeVowels = '';
+        var afterVowels = '';
+        var consonants = '';
+        var c;
+        var newSyllable;
+        var valid;
+        for (var i = 0; i < chars.length; i++) {
+          c = chars[i];
+          newSyllable = false;
+          valid = false;
+          if (this._beforeVowels.indexOf(c) >= 0) {
+            valid = true;
+            if (consonants !== '') {
+              newSyllable = true;
+            }
           }
-          return c;
-        }.bind(this));
+          if (this._afterVowels.indexOf(c) >= 0) {
+            valid = true;
+            if (consonants === '') {
+              newSyllable = true;
+            }
+          }
+          if (!valid && !!this._consonants[c]) {
+            valid = true;
+            if (afterVowels !== '') {
+              newSyllable = true;
+            }
+          }
+          if (!valid) {
+            newSyllable = true;
+          }
+
+          if (newSyllable) {
+            syllables.push(this._romanizeSyllable(beforeVowels, consonants, afterVowels));
+            beforeVowels = '';
+            consonants = '';
+            afterVowels = '';
+          }
+
+          valid = false;
+          if (this._beforeVowels.indexOf(c) >= 0) {
+            valid = true;
+            beforeVowels += c;
+          }
+          if (this._afterVowels.indexOf(c) >= 0) {
+            valid = true;
+            afterVowels += c;
+          }
+          if (!valid && !!this._consonants[c]) {
+            valid = true;
+            consonants += c;
+          }
+
+          if (!valid) {
+            syllables.push(c);
+          }
+        }
+        syllables.push(this._romanizeSyllable(beforeVowels, consonants, afterVowels));
+        return syllables;
       }
 
     });
