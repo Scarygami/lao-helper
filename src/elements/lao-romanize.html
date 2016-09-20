@@ -74,6 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               'ໜ': 'n',
               'ໝ': 'm',
               'ຫຼ': 'l',
+              'ຼ': 'l',
               'ຫວ': 'w'
             };
           }
@@ -112,7 +113,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: function () {
             return [
               'ະ', 'ັ', 'າ', 'ຍ', 'ວ', 'ິ', 'ີ', 'ຶ',
-              'ື', 'ຸ', 'ູ', 'ົ', 'ໍ', 'ອ', 'ຽ'
+              'ື', 'ຸ', 'ູ', 'ົ', 'ໍ', 'ອ', 'ຽ', 'ຳ'
             ];
           }
         },
@@ -129,6 +130,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _romanizeSyllable: function (beforeVowels, consonants, afterVowels) {
         // TODO:
+        if (!!this._consonants[consonants]) {
+          consonants = this._consonants[consonants];
+        }
         return beforeVowels + consonants + afterVowels;
       },
 
