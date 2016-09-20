@@ -153,7 +153,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         if (prefix !== '') {
-          this.set('value', this.value.substring(0, this.value.length - 1) + prefix + this.value.substring(this.value.length - 1) + suffix);
+          if (this.value[this.value.length - 2] === 'ຫ') {
+            this.set('value', this.value.substring(0, this.value.length - 2) + prefix + this.value.substring(this.value.length - 2) + suffix);
+          } else {
+            this.set('value', this.value.substring(0, this.value.length - 1) + prefix + this.value.substring(this.value.length - 1) + suffix);
+          }
         } else {
           this.set('value', this.value + suffix);
         }
