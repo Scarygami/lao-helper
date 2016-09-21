@@ -9,11 +9,17 @@
     <style include="lao-styles">
       :host {
         display: block;
+        @apply(--layout-horizontal);
+      }
+
+      div {
+        padding: 0 5px;
+        border-right: 1px solid #CCC;
       }
     </style>
 
     <template is="dom-repeat" items="[[_output]]">
-      <span>[[item]]</span>
+      <div>[[item]]</div>
     </template>
   </template>
 
@@ -180,6 +186,85 @@
         return parts;
       }
 
+      function joinSyllables(parts) {
+        var syllables = [];
+        var syllable = [];
+        var split = false;
+        var addToSplit = false;
+        var beforeVowel = false;
+        var afterVowel = false;
+        var consonant = false;
+
+        for (var i = 0; i < parts.length; i++) {
+          split = false;
+          addToSplit = false;
+          switch(parts[i].type) {
+            case charTypes.BEFOREVOWEL:
+              if (consonant || afterVowel) {
+                split = true;
+                addToSplit = false;
+                afterVowel = false;
+                consonant = false;
+              }
+              beforeVowel = true;
+              break;
+            case charTypes.AFTERVOWEL:
+            case charTypes.TONEMARK:
+              if (!consonant) {
+                split = true;
+                addToSplit  = true;
+                beforeVowel = false;
+                afterVowel = false;
+                consonant = false;
+              } else {
+                afterVowel = true;
+              }
+              break;
+            case charTypes.CONSONANT:
+              if (consonant) {
+                // TODO: determine if final consonant is part of syllable
+                split = true;
+                addToSplit = false;
+                beforeVowel = false;
+                afterVowel = false;
+              } else if (afterVowel) {
+                split = true;
+                addToSplit = false;
+                beforeVowel = false;
+                afterVowel = false;
+              }
+              consonant = true;
+              break;
+          }
+
+          if (split) {
+            if (addToSplit) {
+              syllable.push(parts[i]);
+            }
+            syllables.push(syllable);
+            syllable = [];
+          }
+          if (!addToSplit) {
+            syllable.push(parts[i]);
+          }
+        }
+
+        if (syllable.length > 0) {
+          syllables.push(syllable);
+        }
+
+        return syllables;
+      }
+
+      function romanizeSyllable(parts) {
+        return parts.map(function (part) {
+          if (part.type === charTypes.CONSONANT && !!consonants[part.part]) {
+            return consonants[part.part];
+          }
+          return part.part;
+        }).join('');
+      }
+
       Polymer({
         is: 'lao-romanize',
         properties: {
@@ -192,12 +277,9 @@
         },
 
         _romanize: function (input) {
-          return splitParts(input).map(function (part) {
-            if (part.type === charTypes.CONSONANT && !!consonants[part.part]) {
-              return consonants[part.part];
-            }
-            return part.part;
-          });
+          var parts = splitParts(input);
+          var syllables = joinSyllables(parts);
+          return syllables.map(romanizeSyllable);
         }
 
       });
