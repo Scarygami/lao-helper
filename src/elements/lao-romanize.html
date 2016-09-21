@@ -1,13 +1,3 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
@@ -28,178 +18,189 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-    Polymer({
-      is: 'lao-romanize',
-      properties: {
-        value: String,
+    (function () {
 
-        _output: {
-          type: Array,
-          computed: '_romanize(value)'
-        },
+      var consonants = {
+        'ກ': 'g',
+        'ຂ': 'kh',
+        'ຄ': 'k',
+        'ງ': 'ng',
+        'ຈ': 'j',
+        'ສ': 's',
+        'ຊ': 's',
+        'ຍ': 'ny',
+        'ດ': 'd',
+        'ຕ': 'dt',
+        'ຖ': 'th',
+        'ທ': 't',
+        'ນ': 'n',
+        'ບ': 'b',
+        'ປ': 'bp',
+        'ຜ': 'ph',
+        'ຝ': 'f',
+        'ພ': 'p',
+        'ຟ': 'f',
+        'ມ': 'm',
+        'ຢ': 'y',
+        'ຣ': 'r',
+        'ລ': 'l',
+        'ວ': 'w',
+        'ຫ': 'h',
+        'ອ': 'a',
+        'ຮ': 'h',
+        'ຫງ': 'ng',
+        'ຫຍ': 'ny',
+        'ໜ': 'n',
+        'ໝ': 'm',
+        'ຫຼ': 'l',
+        'ຫລ': 'l',
+        'ຫວ': 'w'
+      };
 
-        _consonants: {
-          type: Object,
-          value: function () {
-            return {
-              'ກ': 'g',
-              'ຂ': 'kh',
-              'ຄ': 'k',
-              'ງ': 'ng',
-              'ຈ': 'j',
-              'ສ': 's',
-              'ຊ': 's',
-              'ຍ': 'ny',
-              'ດ': 'd',
-              'ຕ': 'dt',
-              'ຖ': 'th',
-              'ທ': 't',
-              'ນ': 'n',
-              'ບ': 'b',
-              'ປ': 'bp',
-              'ຜ': 'ph',
-              'ຝ': 'f',
-              'ພ': 'p',
-              'ຟ': 'f',
-              'ມ': 'm',
-              'ຢ': 'y',
-              'ຣ': 'r',
-              'ລ': 'l',
-              'ວ': 'w',
-              'ຫ': 'h',
-              'ອ': 'a',
-              'ຮ': 'h',
-              'ຫງ': 'ng',
-              'ຫຍ': 'ny',
-              'ໜ': 'n',
-              'ໝ': 'm',
-              'ຫຼ': 'l',
-              'ຼ': 'l',
-              'ຫວ': 'w'
-            };
-          }
-        },
+      var vowels = [
+        'xະ', 'xັ', 'xາ', 'xາຍ',  'xາວ',
+        'xິ', 'xີ', 'xິວ', 'xຶ', 'xື',
+        'xຸ', 'xຸຍ', 'xູ',
+        'ເxັ', 'ເxະ',  'ເx',
+        'ເເxະ', 'ເເx', 'ເເxວ',
+        'xົ', 'ໂxະ',  'ໂx', 'ໂxຍ',
+        'ເxາະ', 'xໍ', 'xອ', 'xອຍ',
+        'ເxິ', 'ເxີ', 'ເxີຍ', 'ເxັຍ', 'ເxຍ', 'ເxັຽ',
+        'xຽ', 'xຽວ', 'ເxືອ', 'ເxືອຍ',
+        'xົວະ', 'xົວ', 'xວ', 'xວຍ', 'ໃx', 'ໄx',
+        'ເxົາ', 'xຳ'
+      ];
 
-        _vowels: {
-          type: Array,
-          value: function () {
-            return [
-             'xະ', 'xັ', 'xາ', 'xາຍ',  'xາວ',
-             'xິ', 'xີ', 'xິວ', 'xຶ', 'xື',
-             'xຸ', 'xຸຍ', 'xູ',
-             'ເxັ', 'ເxະ',  'ເx',
-             'ເເxະ', 'ເເx', 'ເເxວ',
-             'xົ', 'ໂxະ',  'ໂx', 'ໂxຍ',
-             'ເxາະ', 'xໍ', 'xອ', 'xອຍ',
-             'ເxິ', 'ເxີ', 'ເxີຍ', 'ເxັຍ', 'ເxຍ', 'ເxັຽ',
-             'xຽ', 'xຽວ', 'ເxືອ', 'ເxືອຍ',
-             'xົວະ', 'xົວ', 'xວ', 'xວຍ', 'ໃx', 'ໄx',
-             'ເxົາ', 'xຳ'
-            ];
-          }
-        },
+      var beforeVowelParts = [
+        'ເ', 'ໂ', 'ໃ', 'ໄ'
+      ];
 
-        _beforeVowels: {
-          type: Array,
-          value: function () {
-            return [
-              'ເ', 'ໂ', 'ໃ', 'ໄ'
-            ];
-          }
-        },
+      var afterVowelParts = [
+        'ະ', 'ັ', 'າ', 'ຍ', 'ວ', 'ິ', 'ີ', 'ຶ',
+        'ື', 'ຸ', 'ູ', 'ົ', 'ໍ', 'ອ', 'ຽ', 'ຳ'
+      ];
 
-        _afterVowels: {
-          type: Array,
-          value: function () {
-            return [
-              'ະ', 'ັ', 'າ', 'ຍ', 'ວ', 'ິ', 'ີ', 'ຶ',
-              'ື', 'ຸ', 'ູ', 'ົ', 'ໍ', 'ອ', 'ຽ', 'ຳ'
-            ];
-          }
-        },
+      var consonantParts = [
+        'ກ', 'ຂ', 'ຄ', 'ງ', 'ຈ', 'ສ', 'ຊ', 'ຍ', 'ດ', 'ຕ',
+        'ຖ', 'ທ', 'ນ', 'ບ', 'ປ', 'ຜ', 'ຝ', 'ພ', 'ຟ', 'ມ',
+        'ຢ', 'ຣ', 'ລ', 'ວ', 'ຫ', 'ອ', 'ຮ', 'ໜ', 'ໝ', 'ຼ'
+      ];
 
-        _marks: {
-          type: Array,
-          value: function () {
-            return [
-              'x່', 'x້'
-            ];
-          }
+      var toneMarks = [
+        '່', '້'
+      ];
+
+
+      var charTypes = {
+        INVALID: 0,
+        BEFOREVOWEL: 1,
+        CONSONANT: 2,
+        AFTERVOWEL: 3,
+        TONEMARK: 4,
+        CONSONANTVOWEL :5
+      };
+
+      function charType(c) {
+        if (beforeVowelParts.indexOf(c) >= 0) {
+          return charTypes.BEFOREVOWEL;
         }
-      },
-
-      _romanizeSyllable: function (beforeVowels, consonants, afterVowels) {
-        // TODO:
-        if (!!this._consonants[consonants]) {
-          consonants = this._consonants[consonants];
+        if (toneMarks.indexOf(c) >= 0) {
+          return charTypes.TONEMARK;
         }
-        return beforeVowels + consonants + afterVowels;
-      },
-
-      _romanize: function (input) {
-        var chars = input.split('');
-        var syllables = [];
-        var beforeVowels = '';
-        var afterVowels = '';
-        var consonants = '';
-        var c;
-        var newSyllable;
-        var valid;
-        for (var i = 0; i < chars.length; i++) {
-          c = chars[i];
-          newSyllable = false;
-          valid = false;
-          if (this._beforeVowels.indexOf(c) >= 0) {
-            valid = true;
-            if (consonants !== '') {
-              newSyllable = true;
-            }
-          }
-          if (this._afterVowels.indexOf(c) >= 0) {
-            valid = true;
-            if (consonants === '') {
-              newSyllable = true;
-            }
-          }
-          if (!valid && !!this._consonants[c]) {
-            valid = true;
-            if (afterVowels !== '') {
-              newSyllable = true;
-            }
-          }
-          if (!valid) {
-            newSyllable = true;
-          }
-
-          if (newSyllable) {
-            syllables.push(this._romanizeSyllable(beforeVowels, consonants, afterVowels));
-            beforeVowels = '';
-            consonants = '';
-            afterVowels = '';
-          }
-
-          valid = false;
-          if (this._beforeVowels.indexOf(c) >= 0) {
-            valid = true;
-            beforeVowels += c;
-          }
-          if (this._afterVowels.indexOf(c) >= 0) {
-            valid = true;
-            afterVowels += c;
-          }
-          if (!valid && !!this._consonants[c]) {
-            valid = true;
-            consonants += c;
-          }
-
-          if (!valid) {
-            syllables.push(c);
-          }
+        if (consonantParts.indexOf(c) >= 0 && afterVowelParts.indexOf(c) >= 0) {
+          return charTypes.CONSONANTVOWEL;
         }
-        syllables.push(this._romanizeSyllable(beforeVowels, consonants, afterVowels));
-        return syllables;
+        if (afterVowelParts.indexOf(c) >= 0) {
+          return charTypes.AFTERVOWEL;
+        }
+        if (consonantParts.indexOf(c) >= 0) {
+          return charTypes.CONSONANT;
+        }
+        return charTypes.INVALID;
       }
 
-    });
+      function splitParts(input) {
+        var chars = input.split('');
+        var currentType = charTypes.INVALID;
+        var currentPart = '';
+        var type;
+        var c;
+        var split;
+        var parts = [];
+        for (var i = 0; i < chars.length; i++) {
+          c = chars[i];
+          type = charType(c);
+          split = false;
+          if (type === currentType) {
+            if (type === charTypes.CONSONANT) {
+              if (!consonants[currentPart + c]) {
+                split = true;
+              }
+            }
+          } else {
+            if (type === charTypes.CONSONANTVOWEL) {
+              if (currentType === charTypes.CONSONANT) {
+                if (!consonants[currentPart + c]) {
+                  split = true;
+                  type = charTypes.AFTERVOWEL;
+                } else {
+                  type = charTypes.CONSONANT;
+                }
+              } else if (currentType === charTypes.AFTERVOWEL) {
+                type = charTypes.AFTERVOWEL;
+              } else {
+                split = true;
+                type = charTypes.CONSONANT;
+              }
+            } else {
+              split = true;
+            }
+          }
+
+          if (split) {
+            if (currentPart !== '') {
+              parts.push({
+                part: currentPart,
+                type: currentType
+              });
+              currentPart = '';
+            }
+          }
+
+          currentPart += c;
+          currentType = type;
+        }
+        if (currentPart !== '') {
+          parts.push({
+            part: currentPart,
+            type: currentType
+          });
+        }
+
+        return parts;
+      }
+
+      Polymer({
+        is: 'lao-romanize',
+        properties: {
+          value: String,
+
+          _output: {
+            type: Array,
+            computed: '_romanize(value)'
+          },
+        },
+
+        _romanize: function (input) {
+          return splitParts(input).map(function (part) {
+            if (part.type === charTypes.CONSONANT && !!consonants[part.part]) {
+              return consonants[part.part];
+            }
+            return part.part;
+          });
+        }
+
+      });
+    }());
   </script>
 </dom-module>
