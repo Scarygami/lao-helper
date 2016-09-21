@@ -19,63 +19,104 @@
     </style>
 
     <template is="dom-repeat" items="[[_output]]">
-      <div>[[item]]</div>
+      <div>[[item.text]]<br>[[item.tone]]</div>
     </template>
   </template>
 
   <script>
     (function () {
 
-      var consonants = {
-        'ກ': 'g',
-        'ຂ': 'kh',
-        'ຄ': 'k',
-        'ງ': 'ng',
-        'ຈ': 'j',
-        'ສ': 's',
-        'ຊ': 's',
-        'ຍ': 'ny',
-        'ດ': 'd',
-        'ຕ': 'dt',
-        'ຖ': 'th',
-        'ທ': 't',
-        'ນ': 'n',
-        'ບ': 'b',
-        'ປ': 'bp',
-        'ຜ': 'ph',
-        'ຝ': 'f',
-        'ພ': 'p',
-        'ຟ': 'f',
-        'ມ': 'm',
-        'ຢ': 'y',
-        'ຣ': 'r',
-        'ລ': 'l',
-        'ວ': 'w',
-        'ຫ': 'h',
-        'ອ': 'a',
-        'ຮ': 'h',
-        'ຫງ': 'ng',
-        'ຫຍ': 'ny',
-        'ໜ': 'n',
-        'ໝ': 'm',
-        'ຫຼ': 'l',
-        'ຫລ': 'l',
-        'ຫວ': 'w'
+      var classes = {
+        MID: 1,
+        HIGH: 2,
+        LOW: 3
       };
 
-      var vowels = [
-        'xະ', 'xັ', 'xາ', 'xາຍ',  'xາວ',
-        'xິ', 'xີ', 'xິວ', 'xຶ', 'xື',
-        'xຸ', 'xຸຍ', 'xູ',
-        'ເxັ', 'ເxະ',  'ເx',
-        'ເເxະ', 'ເເx', 'ເເxວ',
-        'xົ', 'ໂxະ',  'ໂx', 'ໂxຍ',
-        'ເxາະ', 'xໍ', 'xອ', 'xອຍ',
-        'ເxິ', 'ເxີ', 'ເxີຍ', 'ເxັຍ', 'ເxຍ', 'ເxັຽ',
-        'xຽ', 'xຽວ', 'ເxືອ', 'ເxືອຍ',
-        'xົວະ', 'xົວ', 'xວ', 'xວຍ', 'ໃx', 'ໄx',
-        'ເxົາ', 'xຳ'
-      ];
+      var consonants = {
+        'ກ': {char: 'g', charEnd: 'k', class: classes.MID},
+        'ຂ': {char: 'kh', charEnd: 'k', class: classes.HIGH},
+        'ຄ': {char: 'k', charEnd: 'k', class: classes.LOW},
+        'ງ': {char: 'ng', charEnd: 'ng', class: classes.LOW, open: true},
+        'ຈ': {char: 'j', charEnd: 'j', class: classes.MID},
+        'ສ': {char: 's', charEnd: 's', class: classes.HIGH},
+        'ຊ': {char: 's', charEnd: 's', class: classes.LOW},
+        'ຍ': {char: 'ny', charEnd: 'y', class: classes.LOW},
+        'ດ': {char: 'd', charEnd: 'd', class: classes.MID},
+        'ຕ': {char: 'dt', charEnd: 'dt', class: classes.MID},
+        'ຖ': {char: 'th', charEnd: 't', class: classes.HIGH},
+        'ທ': {char: 't', charEnd: 't', class: classes.LOW},
+        'ນ': {char: 'n', charEnd: 'n', class: classes.LOW, open: true},
+        'ບ': {char: 'b', charEnd: 'b', class: classes.MID},
+        'ປ': {char: 'bp', charEnd: 'bp', class: classes.MID},
+        'ຜ': {char: 'ph', charEnd: 'p', class: classes.HIGH},
+        'ຝ': {char: 'f', charEnd: 'f', class: classes.HIGH},
+        'ພ': {char: 'p', charEnd: 'p', class: classes.LOW},
+        'ຟ': {char: 'f', charEnd: 'f', class: classes.LOW},
+        'ມ': {char: 'm', charEnd: 'm', class: classes.LOW, open: true},
+        'ຢ': {char: 'y', charEnd: 'y', class: classes.MID},
+        'ຣ': {char: 'r', charEnd: 'r', class: classes.LOW},
+        'ລ': {char: 'l', charEnd: 'l', class: classes.LOW},
+        'ວ': {char: 'w', charEnd: 'o', class: classes.LOW},
+        'ຫ': {char: 'h', charEnd: 'k', class: classes.HIGH},
+        'ອ': {char: ' ', charEnd: 'aw', class: classes.MID},
+        'ຮ': {char: 'h', charEnd: 'h', class: classes.LOW},
+        'ຫງ': {char: 'ng', charEnd: 'ng', class: classes.HIGH, open: true},
+        'ຫຍ': {char: 'ny', charEnd: 'y', class: classes.HIGH},
+        'ໜ': {char: 'n', charEnd: 'n', class: classes.HIGH, open: true},
+        'ໝ': {char: 'm', charEnd: 'm', class: classes.HIGH, open: true},
+        'ຫຼ': {char: 'l', charEnd: 'l', class: classes.HIGH},
+        'ຫລ': {char: 'l', charEnd: 'l', class: classes.HIGH},
+        'ຫຣ': {char: 'r', charEnd: 'r', class: classes.HIGH},
+        'ຫວ': {char: 'w', charEnd: 'o', class: classes.HIGH}
+      };
+
+      var vowels = {
+        'ະ': {char: 'a', short: true},
+        'ັ': {char: 'a', short: true},
+        'າ': {char: 'aa'},
+        'າຍ': {char: 'aai'},
+        'າວ': {char: 'aao'},
+        'ິ': {char: ''},
+        'ີ': {char: ''},
+        'ິວ': {char: ''},
+        'ຶ': {char: ''},
+        'ື': {char: ''},
+        'ຸ': {char: ''},
+        'ຸຍ': {char: ''},
+        'ູ': {char: ''},
+        'ເັ': {char: ''},
+        'ເະ': {char: ''},
+        'ເ': {char: ''},
+        'ເເະ': {char: ''},
+        'ເເ': {char: ''},
+        'ເເວ': {char: ''},
+        'ົ': {char: ''},
+        'ໂະ': {char: ''},
+        'ໂ': {char: ''},
+        'ໂຍ': {char: ''},
+        'ເາະ': {char: ''},
+        'ໍ': {char: ''},
+        'ອ': {char: ''},
+        'ອຍ': {char: ''},
+        'ເິ': {char: ''},
+        'ເີ': {char: ''},
+        'ເີຍ': {char: ''},
+        'ເັຍ': {char: ''},
+        'ເຍ': {char: ''},
+        'ເັຽ': {char: ''},
+        'ຽ': {char: ''},
+        'ຽວ': {char: ''},
+        'ເືອ': {char: ''},
+        'ເືອຍ': {char: ''},
+        'ົວະ': {char: ''},
+        'ົວ': {char: ''},
+        'ວ': {char: ''},
+        'ວຍ': {char: ''},
+        'ໃ': {char: ''},
+        'ໄ': {char: ''},
+        'ເົາ': {char: ''},
+        'ຳ': {char: ''}
+      };
 
       var beforeVowelParts = [
         'ເ', 'ໂ', 'ໃ', 'ໄ'
@@ -222,18 +263,27 @@
               break;
             case charTypes.CONSONANT:
               if (consonant) {
-                // TODO: determine if final consonant is part of syllable
                 split = true;
-                addToSplit = false;
                 beforeVowel = false;
                 afterVowel = false;
+                // Determine if final consonant is part of syllable
+                // (i.e. followed by other consonant, beforeVowel or end of sentence)
+                if ((i === parts.length - 1) || (parts[i + 1].type === charTypes.CONSONANT) || (parts[i + 1].type === charTypes.BEFOREVOWEL)) {
+                  addToSplit = true;
+                  consonant = false;
+                } else {
+                  addToSplit = false;
+                  consonant = true;
+                }
               } else if (afterVowel) {
                 split = true;
                 addToSplit = false;
                 beforeVowel = false;
                 afterVowel = false;
+                consonant = true;
+              } else {
+                consonant = true;
               }
-              consonant = true;
               break;
           }
 
@@ -257,12 +307,77 @@
       }
 
       function romanizeSyllable(parts) {
-        return parts.map(function (part) {
-          if (part.type === charTypes.CONSONANT && !!consonants[part.part]) {
-            return consonants[part.part];
+        var consonantClass = 0;
+        var charStart = '';
+        var charEnd = '';
+        var vowel = '';
+        var toneMark = '';
+        var openEnd;
+        var short;
+        var tone = '';
+
+        openEnd = false;
+        for (var i = 0; i < parts.length; i++) {
+          switch (parts[i].type) {
+            case charTypes.CONSONANT:
+              if (charStart !== '') {
+                charEnd = consonants[parts[i].part].charEnd;
+                openEnd = !!consonants[parts[i].part].open;
+              } else {
+                charStart = consonants[parts[i].part].char;
+                consonantClass = consonants[parts[i].part].class;
+              }
+              break;
+
+            case charTypes.BEFOREVOWEL:
+            case charTypes.AFTERVOWEL:
+              vowel = vowel + parts[i].part;
+              break;
+            case charTypes.TONEMARK:
+              toneMark = parts[i].part[0];
+              break;
           }
-          return part.part;
-        }).join('');
+        }
+
+        tone = '?';
+        if (!!vowels[vowel] && consonantClass !== 0) {
+          short = !!vowels[vowel].short;
+
+          if (toneMark === '່') {
+            tone = 'Mid';
+          } else if (toneMark === '້') {
+            if (consonantClass === classes.HIGH) {
+              tone = 'Low falling';
+            } else {
+              tone = 'High falling';
+            }
+          } else if ((charEnd !== '' && !openEnd) && !short) {
+            if (consonantClass === classes.LOW) {
+              tone = "High falling";
+            } else {
+              tone = "Low falling";
+            }
+          } else if (!openEnd && short) {
+            if (consonantClass === classes.LOW) {
+              tone = "Mid";
+            } else {
+              tone = "High";
+            }
+          } else {
+            if (consonantClass === classes.LOW) {
+              tone = 'High';
+            } else {
+              tone = 'Rising';
+            }
+          }
+
+          vowel = vowels[vowel].char || vowel;
+        }
+
+        return {
+          text: charStart + vowel + charEnd,
+          tone: tone
+        };
       }
 
       Polymer({
