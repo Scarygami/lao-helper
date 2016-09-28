@@ -115,13 +115,13 @@
         'ສ': {char: 's', charEnd: 's', class: classes.HIGH},
         'ຊ': {char: 's', charEnd: 's', class: classes.LOW},
         'ຍ': {char: 'ny', charEnd: 'y', class: classes.LOW},
-        'ດ': {char: 'd', charEnd: 'd', class: classes.MID},
-        'ຕ': {char: 'dt', charEnd: 'dt', class: classes.MID},
+        'ດ': {char: 'd', charEnd: 't', class: classes.MID},
+        'ຕ': {char: 'dt', charEnd: 't', class: classes.MID},
         'ຖ': {char: 'th', charEnd: 't', class: classes.HIGH},
         'ທ': {char: 't', charEnd: 't', class: classes.LOW},
         'ນ': {char: 'n', charEnd: 'n', class: classes.LOW, open: true},
-        'ບ': {char: 'b', charEnd: 'b', class: classes.MID},
-        'ປ': {char: 'bp', charEnd: 'bp', class: classes.MID},
+        'ບ': {char: 'b', charEnd: 'p', class: classes.MID},
+        'ປ': {char: 'bp', charEnd: 'p', class: classes.MID},
         'ຜ': {char: 'ph', charEnd: 'p', class: classes.HIGH},
         'ຝ': {char: 'f', charEnd: 'f', class: classes.HIGH},
         'ພ': {char: 'p', charEnd: 'p', class: classes.LOW},
@@ -155,15 +155,18 @@
         'ິວ': {char: 'iu', short: true},
         'ຶ': {char: 'uh', short: true},
         'ື': {char: 'uhh'},
-        'ຸ': {char: 'o', short: true},
+        'ຸ': {char: 'u', short: true},
         'ຸຍ': {char: 'ui', short: true},
-        'ູ': {char: 'oo'},
+        'ູ': {char: 'uu'},
         'ເັ': {char: 'eh', short: true},
         'ເະ': {char: 'ay', short: true},
         'ເ': {char: 'ay'},
         'ເເະ': {char: 'ae', short: true},
         'ເເ': {char: 'ae'},
         'ເເວ': {char: 'aeo'},
+        'ແະ': {char: 'ae', short: true},
+        'ແ': {char: 'ae'},
+        'ແວ': {char: 'aeo'},
         'ົ': {char: 'oh', short: true},
         'ໂະ': {char: 'oh', short: true},
         'ໂ': {char: 'oh'},
@@ -183,7 +186,8 @@
         'ເືອ': {char: 'eua'},
         'ເືອຍ': {char: 'euay'},
         'ົວະ': {char: 'ua', short: true},
-        'ົວ': {char: 'ua'},
+        'ັວ': {char: 'ua', short: true},
+        'ົວ': {char: 'uua'},
         'ວ': {char: 'ua'},
         'ວຍ': {char: 'uay'},
         'ໃ': {char: 'ai'},
@@ -193,7 +197,7 @@
       };
 
       var beforeVowelParts = [
-        'ເ', 'ໂ', 'ໃ', 'ໄ'
+        'ເ', 'ໂ', 'ໃ', 'ໄ', 'ແ'
       ];
 
       var afterVowelParts = [
