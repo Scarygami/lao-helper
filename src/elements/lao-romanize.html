@@ -10,6 +10,7 @@
       :host {
         display: block;
         @apply(--layout-horizontal);
+        @apply(--layout-wrap);
       }
 
       div {
@@ -266,18 +267,26 @@
             }
           } else {
             if (type === charTypes.CONSONANTVOWEL) {
-              if (currentType === charTypes.CONSONANT) {
-                if (!consonants[currentPart + c]) {
-                  split = true;
+              switch (currentType) {
+                case charTypes.CONSONANT:
+                  if (!consonants[currentPart + c]) {
+                    split = true;
+                    type = charTypes.AFTERVOWEL;
+                  } else {
+                    type = charTypes.CONSONANT;
+                  }
+                  break;
+                case charTypes.AFTERVOWEL:
                   type = charTypes.AFTERVOWEL;
-                } else {
+                  break;
+                case charTypes.TONEMARK:
+                  type = charTypes.AFTERVOWEL;
+                  split = true;
+                  break;
+                default:
                   type = charTypes.CONSONANT;
-                }
-              } else if (currentType === charTypes.AFTERVOWEL) {
-                type = charTypes.AFTERVOWEL;
-              } else {
-                split = true;
-                type = charTypes.CONSONANT;
+                  split = true;
+                  break;
               }
             } else {
               split = true;
