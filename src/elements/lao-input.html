@@ -56,7 +56,11 @@
     </style>
 
     <div id="input">
-      <paper-input label="Text in Lao script" value="{{value}}" hidden$="[[noInput]]"></paper-input>
+      <paper-input label="Text in Lao script"
+                   value="{{value}}"
+                   hidden$="[[noInput]]"
+                   autocorrect="on"
+                   autocomplete="on"></paper-input>
       <paper-button raised class="lao" on-tap="_delete">&lt;</paper-button>
     </div>
     <div id="keyboard">
