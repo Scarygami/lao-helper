@@ -67,21 +67,28 @@
       <div>
         <div class="title">Consonants</div>
         <template is="dom-repeat" items="[[_consonants]]">
-          <paper-button raised class="lao" on-tap="_handleKey">[[item]]</paper-button>
-        </template>
-      </div>
-
-      <div>
-        <div class="title">Vowel combinations</div>
-        <template is="dom-repeat" items="[[_vowels]]">
-          <paper-button raised class="lao" on-tap="_handleKey">[[item]]</paper-button>
+          <paper-button raised class="lao" on-tap="_handleConsonant">[[item]]</paper-button>
         </template>
       </div>
 
       <div>
         <div class="title">Tone marks</div>
         <template is="dom-repeat" items="[[_marks]]">
-          <paper-button raised class="lao" on-tap="_handleKey">[[item]]</paper-button>
+          <paper-button raised class="lao" on-tap="_handleTone">[[item]]</paper-button>
+        </template>
+      </div>
+
+      <div>
+        <div class="title">Vowel combinations</div>
+        <template is="dom-repeat" items="[[_vowels]]">
+          <paper-button raised class="lao" on-tap="_handleVowel">[[item]]</paper-button>
+        </template>
+      </div>
+
+      <div>
+        <div class="title">Vowel parts</div>
+        <template is="dom-repeat" items="[[_vowelParts]]">
+          <paper-button raised class="lao" on-tap="_handleVowelPart">[[item]]</paper-button>
         </template>
       </div>
     </div>
@@ -120,13 +127,25 @@
              'xິ', 'xີ', 'xິວ', 'xຶ', 'xື',
              'xຸ', 'xຸຍ', 'xູ',
              'ເxັ', 'ເxະ',  'ເx',
-             'ເເxະ', 'ເເx', 'ເເxວ',
+             'ແxະ', 'ແx', 'ແxວ',
              'xົ', 'ໂxະ',  'ໂx', 'ໂxຍ',
              'ເxາະ', 'xໍ', 'xອ', 'xອຍ',
              'ເxິ', 'ເxີ', 'ເxີຍ', 'ເxັຍ', 'ເxຍ', 'ເxັຽ',
              'xຽ', 'xຽວ', 'ເxືອ', 'ເxືອຍ',
              'xົວະ', 'xັວ', 'xົວ', 'xວ', 'xວາ', 'xວຍ', 'xວາຍ',
              'ໃx', 'ໄx', 'ເxົາ', 'xຳ'
+            ];
+          }
+        },
+
+        _vowelParts: {
+          type: Array,
+          value: function () {
+            return [
+             'ເx', 'ແx', 'ໂx', 'ໃx', 'ໄx',
+             'xຸ', 'xູ',
+             'xັ', 'xິ', 'xີ', 'xຶ', 'xື', 'xົ', 'xໍ', 'xຳ',
+             'xະ', 'xາ', 'xອ', 'xຽ', 'xວ', 'xຍ'
             ];
           }
         },
@@ -141,23 +160,60 @@
         }
       },
 
-      _handleKey: function (e) {
+      _handleConsonant: function (e) {
+        var consonant = e.model.item;
+        this.set('value', this.value + consonant);
+      },
+
+      _handleTone: function (e) {
+        // TODO: make sure tone gets the correct position
+        var consonant = e.model.item;
+        this.set('value', this.value + consonant);
+      },
+
+      _handleVowel: function (e) {
         var suffix = e.model.item;
         var prefix = '';
-        var x = suffix.indexOf('x');
-        if (x >= 0) {
-          prefix = suffix.substring(0, x);
-          suffix = suffix.substring(x + 1);
+        var split = suffix.indexOf('x');
+        if (split >= 0) {
+          prefix = suffix.substring(0, split);
+          suffix = suffix.substring(split + 1);
         }
 
         if (prefix !== '') {
-          if (this.value[this.value.length - 2] === 'ຫ') {
-            this.set('value', this.value.substring(0, this.value.length - 2) + prefix + this.value.substring(this.value.length - 2) + suffix);
-          } else {
-            this.set('value', this.value.substring(0, this.value.length - 1) + prefix + this.value.substring(this.value.length - 1) + suffix);
+          split = this.value.length - 1;
+          // Skip tonemarks
+          if (this.value[split] === '່' || this.value[split] === '້') {
+            split = split - 1;
           }
+          // Skip double-vowels
+          if (this.value[split - 1] === 'ຫ') {
+            split = split - 1;
+          }
+          this.set('value', this.value.substring(0, split) + prefix + this.value.substring(split) + suffix);
         } else {
           this.set('value', this.value + suffix);
+        }
+      },
+
+      _handleVowelPart: function (e) {
+        var vowel = e.model.item;
+        var prefix = (vowel.indexOf('x') > 0);
+        vowel = vowel[prefix ? 0 : 1];
+
+        if (prefix) {
+          var split = this.value.length - 1;
+          // Skip tonemarks (TODO: and other vowels)
+          if (this.value[split] === '່' || this.value[split] === '້') {
+            split = split - 1;
+          }
+          // Skip double-vowels
+          if (this.value[split - 1] === 'ຫ') {
+            split = split - 1;
+          }
+          this.set('value', this.value.substring(0, split) + vowel + this.value.substring(split));
+        } else {
+          this.set('value', this.value + vowel);
         }
       },
 
