@@ -167,8 +167,8 @@
 
       _handleTone: function (e) {
         // TODO: make sure tone gets the correct position
-        var consonant = e.model.item;
-        this.set('value', this.value + consonant);
+        var tone = e.model.item[1];
+        this.set('value', this.value + tone);
       },
 
       _handleVowel: function (e) {
