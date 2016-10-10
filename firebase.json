@@ -3,9 +3,15 @@
     "public": "build/unbundled",
     "rewrites": [
       {
-        "source": "/!(src/)**",
+        "source": "**/!{*.*}",
         "destination": "/index.html"
       }
+    ],
+    "ignore": [
+      "firebase.json",
+      "bower.json",
+      "**/.*",
+      "**/node_modules/**"
     ]
   }
 }

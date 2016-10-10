@@ -2,7 +2,7 @@
   "entrypoint": "index.html",
   "shell": "src/lao-helper.html",
   "fragments": [
-    "src/lao-tones.html",
+    "src/lao-romanization.html",
     "src/lao-404.html"
   ],
   "sourceGlobs": [

@@ -1,4 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
@@ -23,6 +25,13 @@
         display: block;
       }
 
+      app-drawer {
+        --app-drawer-width: 160px;
+        --app-drawer-content-container: {
+          background-color: #B0BEC5;
+        }
+      }
+
       app-header {
         color: black;
         background-color: var(--app-primary-color);
@@ -32,12 +41,29 @@
       }
 
       iron-pages {
-        @apply(--layout-flex);
-        @apply(--layout-vertical);
+        @apply(--layout-fit);
       }
 
       iron-pages > * {
-        @apply(--layout-flex);
+        @apply(--layout-fit);
+        padding-top: 64px;
+      }
+
+      .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a {
+        display: block;
+        padding: 0 16px;
+        text-decoration: none;
+        color: var(--app-secondary-color);
+        line-height: 40px;
+      }
+
+      .drawer-list a.iron-selected {
+        color: black;
+        font-weight: bold;
       }
     </style>
 
@@ -48,23 +74,33 @@
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
-    <app-header-layout fullbleed has-scrolling-region>
-      <app-header>
-        <app-toolbar>
-          <div main-title>Lao Helper - <span class="lao">ລາວ</span></div>
-          <img src="../images/manifest/icon-48x48.png" alt="Logo">
-        </app-toolbar>
-      </app-header>
+    <app-drawer-layout fullbleed responsive-width="800px">
+      <app-drawer>
+        <app-toolbar>Menu</app-toolbar>
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <a name="romanization" href="/romanization">Romanization</a>
+        </iron-selector>
+      </app-drawer>
 
-      <iron-pages
-          selected="[[page]]"
-          attr-for-selected="name"
-          fallback-selection="404"
-          role="main">
-        <lao-tones name="tones"></lao-tones>
-        <lao-404 name="404"></lao-404>
-      </iron-pages>
-    </app-header-layout>
+      <app-header-layout has-scrolling-region>
+        <app-header>
+          <app-toolbar>
+            <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+            <div main-title>Lao Helper - <span class="lao">ລາວ</span></div>
+            <img src="../images/manifest/icon-48x48.png" alt="Logo">
+          </app-toolbar>
+        </app-header>
+
+        <iron-pages
+            selected="[[page]]"
+            attr-for-selected="name"
+            fallback-selection="404"
+            role="main">
+          <lao-romanization name="romanization"></lao-romanization>
+          <lao-404 name="404"></lao-404>
+        </iron-pages>
+      </app-header-layout>
+    </app-drawer-layout>
   </template>
 
   <script>
@@ -84,7 +120,7 @@
       ],
 
       _routePageChanged: function(page) {
-        this.page = page || 'tones';
+        this.page = page || 'romanization';
       },
 
       _pageChanged: function(page) {
