@@ -1,0 +1,140 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="elements/lao-romanize.html">
+<link rel="import" href="elements/lao-styles.html">
+
+<dom-module id="lao-chart">
+  <template>
+    <style include="lao-styles">
+      :host {
+        display: block;
+        padding: 10px;
+        @apply(--layout-vertical);
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      td {
+        border: 1px solid #CCC;
+        padding: 5px;
+        text-align: center;
+      }
+
+      tr {
+        vertical-align: middle;
+      }
+
+      lao-romanize {
+        display: inline-block;
+      }
+
+    </style>
+
+    <table>
+      <tr>
+        <td>Class</td>
+        <td>Consonants</td>
+        <td>End in <span class="lao">ງ ນ ມ</span> or long vowel</td>
+        <td>Short vowel</td>
+        <td>Long vowel ending in <span class="lao">ກ ດ ບ</span></td>
+        <td>Marker ່</td>
+        <td>Marker ້</td>
+      </tr>
+      <tr>
+        <td>High</td>
+        <td class="lao">ຂ ສ ຖ ຜ ຝ ຫ ຫງ ຫຍ ໜ ໝ ຫຼ ຫວ</td>
+        <td>
+          <small>rising</small>
+          <span class="lao">ຂາວ</span>
+          <lao-romanize value="ຂາວ"></lao-romanize>
+        </td>
+        <td>
+          <small>high</small>
+          <span class="lao">ສິບ</span>
+          <lao-romanize value="ສິບ"></lao-romanize>
+        </td>
+        <td>
+          <small>low falling</small>
+          <span class="lao">ໂສດ</span>
+          <lao-romanize value="ໂສດ"></lao-romanize>
+        </td>
+        <td>
+          <small>mid</small>
+          <span class="lao">ໝູ່</span>
+          <lao-romanize value="ໝູ່"></lao-romanize>
+        </td>
+        <td>
+          <small>low falling</small>
+          <span class="lao">ຂ້ອຍ</span>
+          <lao-romanize value="ຂ້ອຍ"></lao-romanize>
+        </td>
+      </tr>
+      <tr>
+        <td>Mid</td>
+        <td class="lao">ກ ຈ ດ ຕ ບ ປ ຢ ອ</td>
+        <td>
+          <small>rising</small>
+          <span class="lao">ກິນ</span>
+          <lao-romanize value="ກິນ"></lao-romanize>
+        </td>
+        <td>
+          <small>high</small>
+          <span class="lao">ເບົາ</span>
+          <lao-romanize value="ເບົາ"></lao-romanize>
+        </td>
+        <td>
+          <small>low falling</small>
+          <span class="lao">ຈອກ</span>
+          <lao-romanize value="ຈອກ"></lao-romanize>
+        </td>
+        <td>
+          <small>mid</small>
+          <span class="lao">ບໍ່</span>
+          <lao-romanize value="ບໍ່"></lao-romanize>
+        </td>
+        <td>
+          <small>high falling</small>
+          <span class="lao">ໄດ້</span>
+          <lao-romanize value="ໄດ້"></lao-romanize>
+        </td>
+      </tr>
+      <tr>
+        <td>Low</td>
+        <td class="lao">ຄ ງ ຊ ຍ ທ ນ ພ ຟ ມ ຣ ລ ວ ຮ</td>
+        <td>
+          <small>high</small>
+          <span class="lao">ຊາ</span>
+          <lao-romanize value="ຊາ"></lao-romanize>
+        </td>
+        <td>
+          <small>mid</small>
+          <span class="lao">ນົກ</span>
+          <lao-romanize value="ນົກ"></lao-romanize>
+        </td>
+        <td>
+          <small>high falling</small>
+          <span class="lao">ແຊບ</span>
+          <lao-romanize value="ແຊບ"></lao-romanize>
+        </td>
+        <td>
+          <small>mid</small>
+          <span class="lao">ເມື່ອຍ</span>
+          <lao-romanize value="ເມື່ອຍ"></lao-romanize>
+        </td>
+        <td>
+          <small>high falling</small>
+          <span class="lao">ແລ້ວ</span>
+          <lao-romanize value="ແລ້ວ"></lao-romanize>
+        </td>
+      </tr>
+    </table>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lao-chart'
+    });
+  </script>
+</dom-module>
