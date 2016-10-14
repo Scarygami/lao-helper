@@ -10,6 +10,9 @@
       :host {
         display: block;
         @apply(--layout-horizontal);
+      }
+
+      :host(:not([nowrap])) {
         @apply(--layout-wrap);
       }
 

@@ -1,0 +1,115 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="elements/lao-romanize.html">
+<link rel="import" href="elements/lao-styles.html">
+
+<dom-module id="lao-intro">
+  <template>
+    <style include="lao-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+
+      .row {
+        @apply(--layout-horizontal);
+        @apply(--layout-baseline);
+        @apply(--layout-wrap);
+      }
+
+      .row > * {
+        margin: 0 5px;
+        white-space: nowrap;
+      }
+
+      p {
+        text-align: justify;
+      }
+    </style>
+
+    <div class="row">
+      <h2>Learning Lao /</h2>
+      <h2 class="lao">ຄວາມຮຽນລາວ</h2>
+    </div>
+
+    <p>Visiting Laos next year I wanted to be a little bit prepared and learn
+    as much of the lanugage as possible. While probably not entirely necessary
+    since we'll mostly have a local guide and English and body language are
+    usually enough in most countries, I always think it's nice to be able to
+    communicate with the locals in their own language, and who knows, it might
+    yield some better prices while bargaining at the market (ຕະຫຼາດ).</p>
+
+    <p>While there is some (but not all too much) information out there in a
+    variety of media, I've decided to put together the bits and pieces that
+    are important to me while learning Lao in this web app.</p>
+
+    <h3>Script</h3>
+
+    <p>Following the book "Lao Basics" (which has the advantage of coming with a
+    huge amount of mp3 files spoken by a native speaker), I've started by
+    learning the different symbols of Lao script and how to pronounce them.</p>
+
+    <p>Lao consists of 26 consonants (or 27 including one, that is no longer in
+    use) and 6 (or 7) digraphs. Additionally there are 21 vowel symbols that can
+    be combined around the consonants to  create almost 50 different vowels.</p>
+
+    <p>I will add a separate section for this once I find the time, but until
+    then the references below should cover all the information you need.</p>
+
+    <h3>Tones</h3>
+
+    <p>Lao is a tonal language, meaning that in addition to the pronounciation,
+    also the (change in) pitch influences meaning, so that e.g. a 'maa' spoken
+    at a high pitch can be a completely different word than a 'maa' spoken at a
+    low or rising pitch.</p>
+
+    <p>Knowing how to write the words allows you to determine which tone has to
+    be used, at least in theory. Which tone is actually used for a specfic
+    consonant/vowel-combination depends on what region of Laos you are visiting
+    and even for the more common dialects there are different opinions.</p>
+
+    <p>The most common dialect taught in different media is the dialect of the
+    capital of Laos, Vientiane. I went with the easiest interpretation of that
+    dialect using 5 different tones, as shown in the <a href="/chart">tone
+    chart</a>.</p>
+
+    <p>The <a href="/romanization">romanization tool</a> uses the tone chart
+    to show the pronounciation including tones for any Lao text entered or
+    pasted.</p>
+
+    <h3>Grammar</h3>
+
+    <p>With no conjugation or declination of any kind grammar in Lao is rather
+    simple. The most important aspect that can often change the meaning of
+    sentences is the word order.</p>
+
+    <p>A separate section about this coming soon...</p>
+
+    <h3>Vocabulary</h3>
+
+    <p>Definitely the most important part of speaking any language is knowning
+    enough words to say what you want to say.</p>
+
+    <p>I've started assembling my own set of Anki flash cards for this, which
+    I'm learning with every day now. I might add some important phrases &amp;
+    words to this page eventually.</p>
+
+    <h3>References</h3>
+    <ul>
+      <li>Brier, S. &amp; Sanghkampone P. (2010) <b>Lao Basics</b>. Tuttle Publishing.</li>
+      <li>Cummings, J. (2014) <b>Lao phrasebook &amp; Dictionary</b>. Lonely Planet Publications Pty Ltd.</li>
+      <li><a href="http://www.thailao.net/">[thailao.net] Thai language / Lao language</a></li>
+      <li><a href="http://www.seasite.niu.edu/lao/">[seasite.niu.edu] SEAsite Laos</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Lao_grammar">[Wikipedia] Lao grammar</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Lao_language">[Wikipedia] Lao language</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Lao_alphabet">[Wikipedia] Lao alphabet</a></li>
+    </ul>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lao-intro'
+    });
+  </script>
+</dom-module>

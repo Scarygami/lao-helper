@@ -11,6 +11,7 @@
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/scary-cookie-consent/scary-cookie-consent.html">
 <link rel="import" href="elements/lao-icons.html">
 <link rel="import" href="elements/lao-styles.html">
 
@@ -46,7 +47,6 @@
 
       iron-pages > * {
         @apply(--layout-fit);
-        padding-top: 70px;
       }
 
       .drawer-list {
@@ -65,6 +65,17 @@
         color: black;
         font-weight: bold;
       }
+
+      scary-cookie-consent {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        --cookie-consent-toolbar: {
+          color: white;
+          background-color: black;
+        };
+      }
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -75,22 +86,23 @@
         tail="{{subroute}}"></app-route>
 
     <app-drawer-layout fullbleed responsive-width="800px">
-      <app-drawer id="drawer">
+      <app-drawer swipe-open id="drawer">
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]"
                        attr-for-selected="name"
                        class="drawer-list"
                        role="navigation"
                        on-iron-activate="_drawerToogle">
+          <a name="intro" href="/intro">Intro</a>
           <a name="romanization" href="/romanization">Romanization</a>
           <a name="chart" href="/chart">Tone Chart</a>
         </iron-selector>
       </app-drawer>
 
       <app-header-layout has-scrolling-region>
-        <app-header>
+        <app-header fixed>
           <app-toolbar>
-            <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+            <paper-icon-button icon="lao:menu" drawer-toggle></paper-icon-button>
             <div main-title>Lao Helper - <span class="lao">ລາວ</span></div>
             <img src="../images/manifest/icon-48x48.png" alt="Logo">
           </app-toolbar>
@@ -101,12 +113,25 @@
             attr-for-selected="name"
             fallback-selection="404"
             role="main">
+          <lao-intro name="intro"></lao-intro>
           <lao-romanization name="romanization"></lao-romanization>
           <lao-chart name="chart"></lao-chart>
           <lao-404 name="404"></lao-404>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
+
+    <scary-cookie-consent consent="{{cookieConsent}}">This website uses cookies for Google Analytics.</scary-cookie-consent>
+    <template is="dom-if" if="[[cookieConsent]]">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-16652516-10', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </template>
   </template>
 
   <script>
@@ -118,7 +143,9 @@
           type: String,
           reflectToAttribute: true,
           observer: '_pageChanged'
-        }
+        },
+
+        cookieConsent: Boolean
       },
 
       observers: [
@@ -126,13 +153,18 @@
       ],
 
       _routePageChanged: function (page) {
-        this.page = page || 'romanization';
+        this.page = page || 'intro';
       },
 
       _pageChanged: function (page) {
         // Load page import on demand. Show 404 page if fails
         var resolvedPageUrl = this.resolveUrl('lao-' + page + '.html');
         this.importHref(resolvedPageUrl, null, this._showPage404, true);
+
+        if (!!window.ga) {
+          window.ga('set', 'page', '/' + page);
+          window.ga('send', 'pageview');
+        }
       },
 
       _showPage404: function () {
