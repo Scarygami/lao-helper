@@ -12,28 +12,9 @@
         @apply(--layout-vertical);
       }
 
-      table {
-        border-collapse: collapse;
-      }
-
-      table[hidden] {
-        display: none;
-      }
-
-      td {
-        border: 1px solid #CCC;
-        padding: 5px;
-        text-align: center;
-      }
-
-      tr {
-        vertical-align: middle;
-      }
-
-      lao-romanize {
+      td > lao-romanize {
         display: inline-block;
       }
-
     </style>
 
     <iron-media-query query="(min-width: 550px)" query-matches="{{_wide}}"></iron-media-query>

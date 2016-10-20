@@ -8,6 +8,39 @@
       .lao {
         font-family: 'Noto Sans Lao';
       }
+
+      h2.lao {
+        font-weight: normal;
+      }
+
+      .row {
+        @apply(--layout-horizontal);
+        @apply(--layout-baseline);
+        @apply(--layout-wrap);
+      }
+
+      .row > * {
+        margin: 0 5px;
+        white-space: nowrap;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table[hidden] {
+        display: none;
+      }
+
+      td {
+        border: 1px solid #CCC;
+        padding: 5px;
+        text-align: center;
+      }
+
+      tr {
+        vertical-align: middle;
+      }
     </style>
   </template>
 </dom-module>

@@ -1,0 +1,56 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="elements/lao-romanize.html">
+<link rel="import" href="elements/lao-styles.html">
+
+<dom-module id="lao-consonants">
+  <template>
+    <style include="lao-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+
+      tr {
+        vertical-align: top;
+      }
+
+      table {
+        margin-top: 10px;
+      }
+    </style>
+
+    <div class="row">
+      <h2>Consonants /</h2>
+      <h2 class="lao">ພະຍັນຊະນະ</h2>
+    </div>
+
+    <table>
+      <tr>
+        <td class="lao">ກ</td>
+        <td class="lao">ໄກ່</td>
+        <td><lao-romanize value="ໄກ່"></lao-romanize></td>
+        <td>chicken</td>
+      </tr>
+      <tr>
+        <td class="lao">ຂ</td>
+        <td class="lao">ໄຂ່</td>
+        <td><lao-romanize value="ໄຂ່"></lao-romanize></td>
+        <td>egg</td>
+      </tr>
+      <tr>
+        <td class="lao">ຄ</td>
+        <td class="lao">ຄວາຍ</td>
+        <td><lao-romanize value="ຄວາຍ"></lao-romanize></td>
+        <td>water buffalo</td>
+      </tr>
+    </table>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lao-consonants'
+    });
+  </script>
+</dom-module>

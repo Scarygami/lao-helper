@@ -3,6 +3,7 @@
   "shell": "src/lao-helper.html",
   "fragments": [
     "src/lao-intro.html",
+    "src/lao-consonants.html",
     "src/lao-romanization.html",
     "src/lao-chart.html",
     "src/lao-404.html"
