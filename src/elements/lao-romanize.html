@@ -28,7 +28,7 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 50%;
+        height: 35%;
         border-bottom: 1px solid black;
         border-right: 1px solid black;
         border-bottom-right-radius: 5px;
@@ -40,7 +40,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 50%;
+        height: 35%;
         border-top: 1px solid black;
         border-right: 1px solid black;
         border-top-right-radius: 5px;
@@ -52,7 +52,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 50%;
+        height: 35%;
         border-top: 1px solid black;
       }
 
@@ -62,19 +62,22 @@
         top: 100%;
         left: 0;
         width: 100%;
-        height: 50%;
+        height: 35%;
         border-top: 1px solid black;
         border-right: 1px solid black;
         border-top-right-radius: 5px;
       }
 
       .short::before {
+        content: '';
         position: absolute;
-        top: -50%;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        content: '.';
+        top: 50%;
+        left: 100%;
+        width: 2px;
+        height: 2px;
+        margin-top: -1px;
+        margin-left: -1px;
+        background: #000;
       }
 
       .invisible {
@@ -157,12 +160,12 @@
         'ິ': {char: 'i', short: true},
         'ີ': {char: 'ii'},
         'ິວ': {char: 'iu', short: true},
-        'ຶ': {char: 'uh', short: true},
-        'ື': {char: 'uhh'},
+        'ຶ': {char: 'ue', short: true},
+        'ື': {char: 'uue'},
         'ຸ': {char: 'u', short: true},
         'ຸຍ': {char: 'ui', short: true},
         'ູ': {char: 'uu'},
-        'ເັ': {char: 'eh', short: true},
+        'ເັ': {char: 'e', short: true},
         'ເະ': {char: 'ay', short: true},
         'ເ': {char: 'ay'},
         'ເເະ': {char: 'ae', short: true},
