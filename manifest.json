@@ -1,11 +1,21 @@
 {
   "name": "Lao Helper",
   "short_name": "Lao Helper",
-  "start_url": "/?homescreen=1",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#ffc35a",
   "background_color": "#ffc35a",
   "icons": [
+    {
+      "src": "images/manifest/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "images/manifest/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
     {
       "src": "images/manifest/icon-192x192.png",
       "sizes": "192x192",

@@ -12,14 +12,18 @@
         @apply(--layout-horizontal);
       }
 
-      :host(:not([nowrap])) {
+      :host([wrap]) {
         @apply(--layout-wrap);
       }
 
       div {
         padding: 0 5px;
-        margin: 0 5px 10px 5px;
+        margin: 0 5px;
         position: relative;
+      }
+
+      :host([wrap]) div {
+        margin: 0 5px 10px 5px;
       }
 
       .rising::after {
@@ -166,7 +170,7 @@
         'ຸຍ': {char: 'ui', short: true},
         'ູ': {char: 'uu'},
         'ເັ': {char: 'e', short: true},
-        'ເະ': {char: 'ay', short: true},
+        'ເະ': {char: 'e', short: true},
         'ເ': {char: 'ay'},
         'ເເະ': {char: 'ae', short: true},
         'ເເ': {char: 'aae'},
@@ -175,35 +179,35 @@
         'ແ': {char: 'aae'},
         'ແວ': {char: 'aeo'},
         'ົ': {char: 'o', short: true},
-        'ໂະ': {char: 'oh', short: true},
+        'ໂະ': {char: 'o', short: true},
         'ໂ': {char: 'oo'},
         'ໂຍ': {char: 'oy'},
         'ເາະ': {char: 'aw', short: true},
-        'ໍ': {char: 'aw'},
-        'ອ': {char: 'aw'},
-        'ອຍ': {char: 'oi'},
-        'ເິ': {char: 'euh', short: true},
-        'ເີ': {char: 'euh'},
+        'ໍ': {char: 'aaw'},
+        'ອ': {char: 'aaw'},
+        'ອຍ': {char: 'awy'},
+        'ເິ': {char: 'eu', short: true},
+        'ເີ': {char: 'eeu'},
         'ເີຍ': {char: 'euy'},
         'ເັຍ': {char: 'ia', short: true},
-        'ເຍ': {char: 'ia'},
-        'ເັຽ': {char: 'ia'},
-        'ຽ': {char: 'ia'},
-        'ຽວ': {char: 'io'},
-        'ເືອ': {char: 'eua'},
-        'ເືອຍ': {char: 'euay'},
+        'ເຍ': {char: 'iia'},
+        'ເັຽ': {char: 'iia'},
+        'ຽ': {char: 'iia'},
+        'ຽວ': {char: 'iio'},
+        'ເືອ': {char: 'uea'},
+        'ເືອຍ': {char: 'ueay'},
         'ົວະ': {char: 'ua', short: true},
         'ັວ': {char: 'ua', short: true},
         'ົວ': {char: 'uua'},
         'ວ': {char: 'uua'},
         'ວາ': {char: 'uaa'},
         'ວຍ': {char: 'uay'},
-        'ວາຍ': {char: 'uaay'},
+        'ວາຍ': {char: 'uuay'},
         'ໃ': {char: 'ai'},
         'ໄ': {char: 'ai'},
         'ເົາ': {char: 'ow', short: true},
-        'ຳ': {char: 'am'},
-        'ໍາ': {char: 'am'}
+        'ຳ': {char: 'aam'},
+        'ໍາ': {char: 'aam'}
       };
 
       var beforeVowelParts = [
