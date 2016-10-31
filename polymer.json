@@ -4,8 +4,9 @@
   "fragments": [
     "src/lao-intro.html",
     "src/lao-consonants.html",
-    "src/lao-romanization.html",
+    "src/lao-vowels.html",
     "src/lao-chart.html",
+    "src/lao-romanization.html",
     "src/lao-404.html"
   ],
   "sourceGlobs": [
